@@ -1,5 +1,3 @@
-import { TargetingCard } from "@/modules/ee/contacts/segments/components/targeting-card";
-import { TTeamPermission } from "@/modules/ee/teams/project-teams/types/team";
 import { HowToSendCard } from "@/modules/survey/editor/components/how-to-send-card";
 import { RecontactOptionsCard } from "@/modules/survey/editor/components/recontact-options-card";
 import { ResponseOptionsCard } from "@/modules/survey/editor/components/response-options-card";
@@ -21,7 +19,7 @@ interface SettingsViewProps {
   responseCount: number;
   membershipRole?: OrganizationRole;
   isUserTargetingAllowed?: boolean;
-  projectPermission: TTeamPermission | null;
+  projectPermission: null;
   isFormbricksCloud: boolean;
 }
 
@@ -30,8 +28,6 @@ export const SettingsView = ({
   localSurvey,
   setLocalSurvey,
   actionClasses,
-  contactAttributeKeys,
-  segments,
   responseCount,
   membershipRole,
   isUserTargetingAllowed = false,
@@ -48,17 +44,7 @@ export const SettingsView = ({
         <div>
           {isUserTargetingAllowed ? (
             <div className="relative">
-              <div className="blur-none">
-                <TargetingCard
-                  key={localSurvey.segment?.id}
-                  localSurvey={localSurvey}
-                  setLocalSurvey={setLocalSurvey}
-                  environmentId={environment.id}
-                  contactAttributeKeys={contactAttributeKeys}
-                  segments={segments}
-                  initialSegment={segments.find((segment) => segment.id === localSurvey.segment?.id)}
-                />
-              </div>
+              <div className="blur-none"></div>
             </div>
           ) : (
             <TargetingLockedCard isFormbricksCloud={isFormbricksCloud} environmentId={environment.id} />

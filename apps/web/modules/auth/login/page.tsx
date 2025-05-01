@@ -13,11 +13,6 @@ import {
 } from "@/lib/constants";
 import { FormWrapper } from "@/modules/auth/components/form-wrapper";
 import { Testimonial } from "@/modules/auth/components/testimonial";
-import {
-  getIsMultiOrgEnabled,
-  getIsSamlSsoEnabled,
-  getisSsoEnabled,
-} from "@/modules/ee/license-check/lib/utils";
 import { Metadata } from "next";
 import { LoginForm } from "./components/login-form";
 
@@ -27,11 +22,9 @@ export const metadata: Metadata = {
 };
 
 export const LoginPage = async () => {
-  const [isMultiOrgEnabled, isSsoEnabled, isSamlSsoEnabled] = await Promise.all([
-    getIsMultiOrgEnabled(),
-    getisSsoEnabled(),
-    getIsSamlSsoEnabled(),
-  ]);
+  const isMultiOrgEnabled = false,
+    isSsoEnabled = false,
+    isSamlSsoEnabled = false;
 
   const samlSsoEnabled = isSamlSsoEnabled && SAML_OAUTH_ENABLED;
   return (

@@ -1,8 +1,8 @@
 "use client";
 
 import { cn } from "@/lib/cn";
-import { LocalizedEditor } from "@/modules/ee/multi-language-surveys/components/localized-editor";
 import { QuestionFormInput } from "@/modules/survey/components/question-form-input";
+import { Editor } from "@/modules/ui/components/editor";
 import { FileInput } from "@/modules/ui/components/file-input";
 import { Label } from "@/modules/ui/components/label";
 import { Switch } from "@/modules/ui/components/switch";
@@ -139,18 +139,14 @@ export const EditWelcomeCard = ({
             <div className="mt-3">
               <Label htmlFor="subheader">{t("environments.surveys.edit.welcome_message")}</Label>
               <div className="mt-2">
-                <LocalizedEditor
-                  id="html"
-                  value={localSurvey.welcomeCard.html}
-                  localSurvey={localSurvey}
+                <Editor
+                  getText={() => localSurvey.welcomeCard.html?.default || ""}
+                  setText={(html) => {
+                    updateSurvey({ html: { default: html, _: "" } });
+                  }}
                   isInvalid={isInvalid}
-                  updateQuestion={updateSurvey}
-                  selectedLanguageCode={selectedLanguageCode}
-                  setSelectedLanguageCode={setSelectedLanguageCode}
                   firstRender={firstRender}
                   setFirstRender={setFirstRender}
-                  questionIdx={-1}
-                  locale={locale}
                 />
               </div>
             </div>

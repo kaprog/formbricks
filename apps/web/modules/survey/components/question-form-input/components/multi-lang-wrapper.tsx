@@ -2,7 +2,6 @@
 
 import { getEnabledLanguages } from "@/lib/i18n/utils";
 import { headlineToRecall, recallToHeadline } from "@/lib/utils/recall";
-import { LanguageIndicator } from "@/modules/ee/multi-language-surveys/components/language-indicator";
 import { useTranslate } from "@tolgee/react";
 import { ReactNode, useMemo } from "react";
 import { TI18nString, TSurvey, TSurveyRecallItem } from "@formbricks/types/surveys/types";
@@ -30,8 +29,6 @@ export const MultiLangWrapper = ({
   value,
   localSurvey,
   selectedLanguageCode,
-  setSelectedLanguageCode,
-  locale,
   render,
   onChange,
 }: MultiLangWrapperProps) => {
@@ -65,15 +62,7 @@ export const MultiLangWrapper = ({
         {render({
           value,
           onChange: handleChange,
-          children:
-            enabledLanguages.length > 1 ? (
-              <LanguageIndicator
-                selectedLanguageCode={usedLanguageCode}
-                surveyLanguages={localSurvey.languages}
-                setSelectedLanguageCode={setSelectedLanguageCode}
-                locale={locale}
-              />
-            ) : null,
+          children: null,
         })}
       </div>
 

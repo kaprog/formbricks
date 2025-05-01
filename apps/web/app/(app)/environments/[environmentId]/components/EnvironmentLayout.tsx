@@ -12,11 +12,8 @@ import {
 } from "@/lib/organization/service";
 import { getUserProjects } from "@/lib/project/service";
 import { getUser } from "@/lib/user/service";
-import { getEnterpriseLicense, getOrganizationProjectsLimit } from "@/modules/ee/license-check/lib/utils";
-import { getProjectPermissionByUserId } from "@/modules/ee/teams/lib/roles";
 import { DevEnvironmentBanner } from "@/modules/ui/components/dev-environment-banner";
 import { LimitsReachedBanner } from "@/modules/ui/components/limits-reached-banner";
-import { PendingDowngradeBanner } from "@/modules/ui/components/pending-downgrade-banner";
 import { getTranslate } from "@/tolgee/server";
 import type { Session } from "next-auth";
 
@@ -60,15 +57,13 @@ export const EnvironmentLayout = async ({ environmentId, session, children }: En
   const membershipRole = currentUserMembership?.role;
   const { isMember } = getAccessFlags(membershipRole);
 
-  const { features, lastChecked, isPendingDowngrade, active } = await getEnterpriseLicense();
-
-  const projectPermission = await getProjectPermissionByUserId(session.user.id, environment.projectId);
+  const projectPermission = null;
 
   if (isMember && !projectPermission) {
     throw new Error(t("common.project_permission_not_found"));
   }
 
-  const isMultiOrgEnabled = features?.isMultiOrgEnabled ?? false;
+  const isMultiOrgEnabled = false;
 
   let peopleCount = 0;
   let responseCount = 0;
@@ -80,7 +75,7 @@ export const EnvironmentLayout = async ({ environmentId, session, children }: En
     ]);
   }
 
-  const organizationProjectsLimit = await getOrganizationProjectsLimit(organization.billing.limits);
+  const organizationProjectsLimit = Number.MAX_SAFE_INTEGER;
 
   return (
     <div className="flex h-screen min-h-screen flex-col overflow-hidden">
@@ -95,27 +90,22 @@ export const EnvironmentLayout = async ({ environmentId, session, children }: En
         />
       )}
 
-      <PendingDowngradeBanner
-        lastChecked={lastChecked}
-        isPendingDowngrade={isPendingDowngrade ?? false}
-        active={active}
-        environmentId={environment.id}
-      />
-
       <div className="flex h-full">
-        <MainNavigation
-          environment={environment}
-          organization={organization}
-          organizations={organizations}
-          projects={projects}
-          organizationProjectsLimit={organizationProjectsLimit}
-          user={user}
-          isFormbricksCloud={IS_FORMBRICKS_CLOUD}
-          isDevelopment={IS_DEVELOPMENT}
-          membershipRole={membershipRole}
-          isMultiOrgEnabled={isMultiOrgEnabled}
-          isLicenseActive={active}
-        />
+        {membershipRole === "owner" ? (
+          <MainNavigation
+            environment={environment}
+            organization={organization}
+            organizations={organizations}
+            projects={projects}
+            organizationProjectsLimit={organizationProjectsLimit}
+            user={user}
+            isFormbricksCloud={IS_FORMBRICKS_CLOUD}
+            isDevelopment={IS_DEVELOPMENT}
+            membershipRole={membershipRole}
+            isMultiOrgEnabled={isMultiOrgEnabled}
+            isLicenseActive={false}
+          />
+        ) : null}
         <div id="mainContent" className="flex-1 overflow-y-auto bg-slate-50">
           <TopControlBar
             environment={environment}

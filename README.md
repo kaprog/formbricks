@@ -1,3 +1,14 @@
+This is a fork of [Formbricks](https://github.com/formbricks/formbricks), licensed under the GNU AGPLv3.
+Modifications include:
+- removal of Enterprise features (whole apps/web/modules/ee directory) and adapting code to work without it 
+
+
+---
+
+
+
+
+
 <div id="top"></div>
 
 <p align="center">Help us grow and star us on Github! ⭐️</p>

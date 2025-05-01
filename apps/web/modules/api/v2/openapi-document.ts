@@ -10,7 +10,6 @@ import { projectTeamPaths } from "@/modules/api/v2/organizations/[organizationId
 import { teamPaths } from "@/modules/api/v2/organizations/[organizationId]/teams/lib/openapi";
 import { userPaths } from "@/modules/api/v2/organizations/[organizationId]/users/lib/openapi";
 import { rolePaths } from "@/modules/api/v2/roles/lib/openapi";
-import { bulkContactPaths } from "@/modules/ee/contacts/api/v2/management/contacts/bulk/lib/openapi";
 import * as yaml from "yaml";
 import { z } from "zod";
 import { createDocument, extendZodWithOpenApi } from "zod-openapi";
@@ -39,7 +38,6 @@ const document = createDocument({
     ...rolePaths,
     ...mePaths,
     ...responsePaths,
-    ...bulkContactPaths,
     // ...contactPaths,
     // ...contactAttributePaths,
     ...contactAttributeKeyPaths,

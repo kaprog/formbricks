@@ -1,7 +1,6 @@
 "use client";
 
 import { getFormattedErrorMessage } from "@/lib/utils/helper";
-import { createSegmentAction } from "@/modules/ee/contacts/segments/actions";
 import { Alert, AlertButton, AlertTitle } from "@/modules/ui/components/alert";
 import { AlertDialog } from "@/modules/ui/components/alert-dialog";
 import { Button } from "@/modules/ui/components/button";
@@ -126,7 +125,7 @@ export const SurveyMenuBar = ({
   };
 
   const handleTemporarySegment = async () => {
-    if (localSurvey.segment && localSurvey.type === "app" && localSurvey.segment?.id === "temp") {
+    /*if (localSurvey.segment && localSurvey.type === "app" && localSurvey.segment?.id === "temp") {
       const { filters } = localSurvey.segment;
 
       // create a new private segment
@@ -139,7 +138,7 @@ export const SurveyMenuBar = ({
       });
 
       return newSegment?.data;
-    }
+    }*/
   };
 
   const handleSegmentUpdate = async (): Promise<TSegment | null> => {

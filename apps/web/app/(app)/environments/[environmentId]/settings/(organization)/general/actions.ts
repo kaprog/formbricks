@@ -3,7 +3,6 @@
 import { deleteOrganization, updateOrganization } from "@/lib/organization/service";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { checkAuthorizationUpdated } from "@/lib/utils/action-client-middleware";
-import { getIsMultiOrgEnabled } from "@/modules/ee/license-check/lib/utils";
 import { z } from "zod";
 import { ZId } from "@formbricks/types/common";
 import { OperationNotAllowedError } from "@formbricks/types/errors";
@@ -40,7 +39,7 @@ const ZDeleteOrganizationAction = z.object({
 export const deleteOrganizationAction = authenticatedActionClient
   .schema(ZDeleteOrganizationAction)
   .action(async ({ parsedInput, ctx }) => {
-    const isMultiOrgEnabled = await getIsMultiOrgEnabled();
+    const isMultiOrgEnabled = false;
     if (!isMultiOrgEnabled) throw new OperationNotAllowedError("Organization deletion disabled");
 
     await checkAuthorizationUpdated({

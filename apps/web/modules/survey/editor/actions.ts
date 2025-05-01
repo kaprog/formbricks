@@ -10,7 +10,6 @@ import {
   getProjectIdFromEnvironmentId,
   getProjectIdFromSurveyId,
 } from "@/lib/utils/helper";
-import { checkMultiLanguagePermission } from "@/modules/ee/multi-language-surveys/lib/actions";
 import { createActionClass } from "@/modules/survey/editor/lib/action-class";
 import { updateSurvey } from "@/modules/survey/editor/lib/survey";
 import { getSurveyFollowUpsPermission } from "@/modules/survey/follow-ups/lib/utils";
@@ -56,17 +55,12 @@ export const updateSurveyAction = authenticatedActionClient
         {
           type: "projectTeam",
           projectId: await getProjectIdFromSurveyId(parsedInput.id),
-          minPermission: "readWrite",
         },
       ],
     });
 
     if (parsedInput.followUps?.length) {
       await checkSurveyFollowUpsPermission(organizationId);
-    }
-
-    if (parsedInput.languages?.length) {
-      await checkMultiLanguagePermission(organizationId);
     }
 
     return await updateSurvey(parsedInput);
@@ -89,7 +83,6 @@ export const refetchProjectAction = authenticatedActionClient
         },
         {
           type: "projectTeam",
-          minPermission: "readWrite",
           projectId: parsedInput.projectId,
         },
       ],
@@ -194,7 +187,6 @@ export const createActionClassAction = authenticatedActionClient
         },
         {
           type: "projectTeam",
-          minPermission: "readWrite",
           projectId: await getProjectIdFromEnvironmentId(parsedInput.action.environmentId),
         },
       ],

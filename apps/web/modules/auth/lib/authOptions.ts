@@ -1,13 +1,10 @@
-import { EMAIL_VERIFICATION_DISABLED, ENCRYPTION_KEY, ENTERPRISE_LICENSE_KEY } from "@/lib/constants";
+import { EMAIL_VERIFICATION_DISABLED, ENCRYPTION_KEY } from "@/lib/constants";
 import { symmetricDecrypt, symmetricEncrypt } from "@/lib/crypto";
 import { verifyToken } from "@/lib/jwt";
 import { getUserByEmail, updateUser, updateUserLastLoginAt } from "@/modules/auth/lib/user";
 import { verifyPassword } from "@/modules/auth/lib/utils";
-import { getSSOProviders } from "@/modules/ee/sso/lib/providers";
-import { handleSsoCallback } from "@/modules/ee/sso/lib/sso-handlers";
 import type { Account, NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { cookies } from "next/headers";
 import { prisma } from "@formbricks/database";
 import { logger } from "@formbricks/logger";
 import { TUser } from "@formbricks/types/user";
@@ -174,8 +171,6 @@ export const authOptions: NextAuthOptions = {
         return user;
       },
     }),
-    // Conditionally add enterprise SSO providers
-    ...(ENTERPRISE_LICENSE_KEY ? getSSOProviders() : []),
   ],
   session: {
     maxAge: 3600,
@@ -205,9 +200,9 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     async signIn({ user, account }: { user: TUser; account: Account }) {
-      const cookieStore = await cookies();
+      //const cookieStore = await cookies();
 
-      const callbackUrl = cookieStore.get("next-auth.callback-url")?.value || "";
+      //const callbackUrl = cookieStore.get("next-auth.callback-url")?.value || "";
 
       if (account?.provider === "credentials" || account?.provider === "token") {
         // check if user's email is verified or not
@@ -217,13 +212,7 @@ export const authOptions: NextAuthOptions = {
         await updateUserLastLoginAt(user.email);
         return true;
       }
-      if (ENTERPRISE_LICENSE_KEY) {
-        const result = await handleSsoCallback({ user, account, callbackUrl });
-        if (result) {
-          await updateUserLastLoginAt(user.email);
-        }
-        return result;
-      }
+
       await updateUserLastLoginAt(user.email);
       return true;
     },

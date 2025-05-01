@@ -1,7 +1,6 @@
 import { responses } from "@/app/lib/api/response";
 import { transformErrorToDetails } from "@/app/lib/api/validator";
 import { capturePosthogEnvironmentEvent } from "@/lib/posthogServer";
-import { getIsContactsEnabled } from "@/modules/ee/license-check/lib/utils";
 import { logger } from "@formbricks/logger";
 import { ZDisplayCreateInput } from "@formbricks/types/displays";
 import { InvalidInputError } from "@formbricks/types/errors";
@@ -34,7 +33,7 @@ export const POST = async (request: Request, context: Context): Promise<Response
   }
 
   if (inputValidation.data.userId) {
-    const isContactsEnabled = await getIsContactsEnabled();
+    const isContactsEnabled = false;
     if (!isContactsEnabled) {
       return responses.forbiddenResponse("User identification is only available for enterprise users.", true);
     }

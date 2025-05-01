@@ -1,8 +1,5 @@
 import { SettingsCard } from "@/app/(app)/environments/[environmentId]/settings/components/SettingsCard";
 import { INVITE_DISABLED, IS_FORMBRICKS_CLOUD } from "@/lib/constants";
-import { getIsMultiOrgEnabled } from "@/modules/ee/license-check/lib/utils";
-import { getTeamsByOrganizationId } from "@/modules/ee/teams/team-list/lib/team";
-import { TOrganizationTeam } from "@/modules/ee/teams/team-list/types/team";
 import { EditMemberships } from "@/modules/organization/settings/teams/components/edit-memberships";
 import { OrganizationActions } from "@/modules/organization/settings/teams/components/edit-memberships/organization-actions";
 import { getMembershipsByUserId } from "@/modules/organization/settings/teams/lib/membership";
@@ -43,12 +40,12 @@ export const MembersView = async ({
   const userMemberships = await getMembershipsByUserId(currentUserId);
   const isLeaveOrganizationDisabled = userMemberships.length <= 1;
 
-  const isMultiOrgEnabled = await getIsMultiOrgEnabled();
+  const isMultiOrgEnabled = false;
 
-  let teams: TOrganizationTeam[] = [];
+  let teams = [];
 
   if (canDoRoleManagement) {
-    teams = (await getTeamsByOrganizationId(organization.id)) ?? [];
+    teams = [];
     if (!teams) {
       throw new Error(t("common.teams_not_found"));
     }

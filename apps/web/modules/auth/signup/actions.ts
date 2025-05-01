@@ -10,7 +10,6 @@ import { createUser, updateUser } from "@/modules/auth/lib/user";
 import { deleteInvite, getInvite } from "@/modules/auth/signup/lib/invite";
 import { createTeamMembership } from "@/modules/auth/signup/lib/team";
 import { captureFailedSignup, verifyTurnstileToken } from "@/modules/auth/signup/lib/utils";
-import { getIsMultiOrgEnabled } from "@/modules/ee/license-check/lib/utils";
 import { sendInviteAcceptedEmail, sendVerificationEmail } from "@/modules/email";
 import { z } from "zod";
 import { UnknownError } from "@formbricks/types/errors";
@@ -111,7 +110,7 @@ export const createUserAction = actionClient.schema(ZCreateUserAction).action(as
       }
       organizationId = organization.id;
     } else {
-      const isMultiOrgEnabled = await getIsMultiOrgEnabled();
+      const isMultiOrgEnabled = false;
       if (isMultiOrgEnabled) {
         // Create new organization
         const organization = await createOrganization({ name: `${user.name}'s Organization` });

@@ -4,7 +4,6 @@ import { getOrganization } from "@/lib/organization/service";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { checkAuthorizationUpdated } from "@/lib/utils/action-client-middleware";
 import { getOrganizationIdFromProjectId } from "@/lib/utils/helper";
-import { getRemoveBrandingPermission } from "@/modules/ee/license-check/lib/utils";
 import { updateProject } from "@/modules/projects/settings/lib/project";
 import { z } from "zod";
 import { ZId } from "@formbricks/types/common";
@@ -34,7 +33,6 @@ export const updateProjectAction = authenticatedActionClient
         {
           type: "projectTeam",
           projectId: parsedInput.projectId,
-          minPermission: "manage",
         },
       ],
     });
@@ -49,7 +47,7 @@ export const updateProjectAction = authenticatedActionClient
         throw new Error("Organization not found");
       }
 
-      const canRemoveBranding = await getRemoveBrandingPermission(organization.billing.plan);
+      const canRemoveBranding = false;
 
       if (parsedInput.data.inAppSurveyBranding !== undefined) {
         if (!canRemoveBranding) {

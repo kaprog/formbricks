@@ -2,7 +2,6 @@ import { ZDisplayCreateInputV2 } from "@/app/api/v2/client/[environmentId]/displ
 import { responses } from "@/app/lib/api/response";
 import { transformErrorToDetails } from "@/app/lib/api/validator";
 import { capturePosthogEnvironmentEvent } from "@/lib/posthogServer";
-import { getIsContactsEnabled } from "@/modules/ee/license-check/lib/utils";
 import { logger } from "@formbricks/logger";
 import { InvalidInputError } from "@formbricks/types/errors";
 import { createDisplay } from "./lib/display";
@@ -34,7 +33,7 @@ export const POST = async (request: Request, context: Context): Promise<Response
   }
 
   if (inputValidation.data.contactId) {
-    const isContactsEnabled = await getIsContactsEnabled();
+    const isContactsEnabled = false;
     if (!isContactsEnabled) {
       return responses.forbiddenResponse("User identification is only available for enterprise users.", true);
     }

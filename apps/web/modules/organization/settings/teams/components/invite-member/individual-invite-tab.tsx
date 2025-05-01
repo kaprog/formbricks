@@ -1,7 +1,5 @@
 "use client";
 
-import { AddMemberRole } from "@/modules/ee/role-management/components/add-member-role";
-import { TOrganizationTeam } from "@/modules/ee/teams/team-list/types/team";
 import { Alert, AlertDescription } from "@/modules/ui/components/alert";
 import { Button } from "@/modules/ui/components/button";
 import { FormField, FormItem, FormLabel } from "@/modules/ui/components/form";
@@ -21,7 +19,7 @@ import { ZUserName } from "@formbricks/types/user";
 interface IndividualInviteTabProps {
   setOpen: (v: boolean) => void;
   onSubmit: (data: { name: string; email: string; role: TOrganizationRole }[]) => void;
-  teams: TOrganizationTeam[];
+  teams: unknown[];
   canDoRoleManagement: boolean;
   isFormbricksCloud: boolean;
   environmentId: string;
@@ -31,11 +29,9 @@ interface IndividualInviteTabProps {
 export const IndividualInviteTab = ({
   setOpen,
   onSubmit,
-  teams,
   canDoRoleManagement,
   isFormbricksCloud,
   environmentId,
-  membershipRole,
 }: IndividualInviteTabProps) => {
   const ZFormSchema = z.object({
     name: ZUserName,
@@ -72,10 +68,7 @@ export const IndividualInviteTab = ({
     reset();
   };
 
-  const teamOptions = teams.map((team) => ({
-    label: team.name,
-    value: team.id,
-  }));
+  const teamOptions = [];
 
   return (
     <FormProvider {...form}>
@@ -100,12 +93,6 @@ export const IndividualInviteTab = ({
           {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>}
         </div>
         <div>
-          <AddMemberRole
-            control={control}
-            canDoRoleManagement={canDoRoleManagement}
-            isFormbricksCloud={isFormbricksCloud}
-            membershipRole={membershipRole}
-          />
           {watch("role") === "member" && (
             <Alert className="mt-2" variant="info">
               <AlertDescription>{t("environments.settings.teams.member_role_info_message")}</AlertDescription>

@@ -2,7 +2,6 @@
 
 import { getAccessFlags } from "@/lib/membership/utils";
 import { getFormattedDateTimeString } from "@/lib/utils/datetime";
-import { EditMembershipRole } from "@/modules/ee/role-management/components/edit-membership-role";
 import { MemberActions } from "@/modules/organization/settings/teams/components/edit-memberships/member-actions";
 import { isInviteExpired } from "@/modules/organization/settings/teams/lib/utilts";
 import { TInvite } from "@/modules/organization/settings/teams/types/invites";
@@ -35,7 +34,6 @@ export const MembersInfo = ({
   members,
   currentUserId,
   canDoRoleManagement,
-  isFormbricksCloud,
   isUserManagementDisabledFromUi,
 }: MembersInfoProps) => {
   const allMembers = [...members, ...invites];
@@ -106,20 +104,7 @@ export const MembersInfo = ({
           </div>
 
           {canDoRoleManagement && allMembers?.length > 0 && (
-            <div className="ph-no-capture min-w-[100px]">
-              <EditMembershipRole
-                currentUserRole={currentUserRole}
-                memberRole={member.role}
-                memberId={!isInvitee(member) ? member.userId : ""}
-                organizationId={organization.id}
-                userId={currentUserId}
-                memberAccepted={!isInvitee(member) ? member.accepted : undefined}
-                inviteId={isInvitee(member) ? member.id : ""}
-                doesOrgHaveMoreThanOneOwner={doesOrgHaveMoreThanOneOwner}
-                isFormbricksCloud={isFormbricksCloud}
-                isUserManagementDisabledFromUi={isUserManagementDisabledFromUi}
-              />
-            </div>
+            <div className="ph-no-capture min-w-[100px]"></div>
           )}
           <div className="min-w-[80px]">{getMembershipBadge(member)}</div>
 

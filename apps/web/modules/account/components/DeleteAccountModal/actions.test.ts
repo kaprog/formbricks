@@ -1,6 +1,5 @@
 import { getOrganizationsWhereUserIsSingleOwner } from "@/lib/organization/service";
 import { deleteUser } from "@/lib/user/service";
-import { getIsMultiOrgEnabled } from "@/modules/ee/license-check/lib/utils";
 import { describe, expect, test, vi } from "vitest";
 import { OperationNotAllowedError } from "@formbricks/types/errors";
 import { TOrganization } from "@formbricks/types/organizations";

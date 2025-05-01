@@ -7,7 +7,6 @@ import { getSurvey } from "@/modules/api/v2/management/surveys/[surveyId]/contac
 import { TContactWithAttributes } from "@/modules/api/v2/management/surveys/[surveyId]/contact-links/segments/[segmentId]/types/contact";
 import { ApiErrorResponseV2 } from "@/modules/api/v2/types/api-error";
 import { ApiResponseWithMeta } from "@/modules/api/v2/types/api-success";
-import { segmentFilterToPrismaQuery } from "@/modules/ee/contacts/segments/lib/filter/prisma-query";
 import { cache as reactCache } from "react";
 import { prisma } from "@formbricks/database";
 import { logger } from "@formbricks/logger";
@@ -50,11 +49,7 @@ export const getContactsInSegment = reactCache(
             return err(error);
           }
 
-          const segmentFilterToPrismaQueryResult = await segmentFilterToPrismaQuery(
-            segment.id,
-            segment.filters,
-            segment.environmentId
-          );
+          const segmentFilterToPrismaQueryResult = {} as unknown as any;
 
           if (!segmentFilterToPrismaQueryResult.ok) {
             return err(segmentFilterToPrismaQueryResult.error);

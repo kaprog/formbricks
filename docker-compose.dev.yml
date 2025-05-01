@@ -1,14 +1,14 @@
 services:
-  postgres:
-    image: pgvector/pgvector:pg17
-    volumes:
-      - postgres:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - 5432:5432
+#  postgres:
+#    image: pgvector/pgvector:pg17
+#    volumes:
+#      - postgres:/var/lib/postgresql/data
+#    environment:
+#      - POSTGRES_DB=postgres
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=postgres
+#    ports:
+#      - 5432:5432
 
   mailhog:
     image: arjenz/mailhog # Copy of mailhog/MailHog to support linux/arm64

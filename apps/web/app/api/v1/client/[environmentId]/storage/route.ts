@@ -2,7 +2,6 @@ import { responses } from "@/app/lib/api/response";
 import { transformErrorToDetails } from "@/app/lib/api/validator";
 import { getOrganizationByEnvironmentId } from "@/lib/organization/service";
 import { getSurvey } from "@/lib/survey/service";
-import { getBiggerUploadFileSizePermission } from "@/modules/ee/license-check/lib/utils";
 import { NextRequest } from "next/server";
 import { ZUploadFileRequest } from "@formbricks/types/storage";
 import { uploadPrivateFile } from "./lib/uploadPrivateFile";
@@ -57,7 +56,7 @@ export const POST = async (req: NextRequest, context: Context): Promise<Response
     return responses.notFoundResponse("OrganizationByEnvironmentId", environmentId);
   }
 
-  const isBiggerFileUploadAllowed = await getBiggerUploadFileSizePermission(organization.billing.plan);
+  const isBiggerFileUploadAllowed = false;
 
   return await uploadPrivateFile(fileName, environmentId, fileType, isBiggerFileUploadAllowed);
 };

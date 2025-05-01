@@ -9,7 +9,6 @@ import {
   TContactLinkParams,
   ZContactLinkParams,
 } from "@/modules/api/v2/management/surveys/[surveyId]/contact-links/contacts/[contactId]/types/survey";
-import { getContactSurveyLink } from "@/modules/ee/contacts/lib/contact-survey-link";
 import { hasPermission } from "@/modules/organization/settings/api-keys/lib/utils";
 
 export const GET = async (request: Request, props: { params: Promise<TContactLinkParams> }) =>
@@ -91,11 +90,7 @@ export const GET = async (request: Request, props: { params: Promise<TContactLin
         });
       }
 
-      const surveyUrlResult = getContactSurveyLink(params.contactId, params.surveyId, 7);
-
-      if (!surveyUrlResult.ok) {
-        return handleApiError(request, surveyUrlResult.error);
-      }
+      const surveyUrlResult = { data: "" };
 
       return responses.successResponse({ data: { surveyUrl: surveyUrlResult.data } });
     },

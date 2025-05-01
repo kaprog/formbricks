@@ -1,7 +1,4 @@
 import { getMembershipRole } from "@/lib/membership/hooks/actions";
-import { getProjectPermissionByUserId, getTeamRoleByTeamIdUserId } from "@/modules/ee/teams/lib/roles";
-import { type TTeamPermission } from "@/modules/ee/teams/project-teams/types/team";
-import { type TTeamRole } from "@/modules/ee/teams/team-list/types/team";
 import { returnValidationErrors } from "next-safe-action";
 import { ZodIssue, z } from "zod";
 import { AuthorizationError } from "@formbricks/types/errors";
@@ -27,16 +24,14 @@ export type TAccess<T extends z.ZodRawShape> =
     }
   | {
       type: "projectTeam";
-      minPermission?: TTeamPermission;
       projectId: string;
     }
   | {
       type: "team";
-      minPermission?: TTeamRole;
       teamId: string;
     };
 
-const teamPermissionWeight = {
+/*const teamPermissionWeight = {
   read: 1,
   readWrite: 2,
   manage: 3,
@@ -45,7 +40,7 @@ const teamPermissionWeight = {
 const teamRoleWeight = {
   contributor: 1,
   admin: 2,
-};
+};*/
 
 export const checkAuthorizationUpdated = async <T extends z.ZodRawShape>({
   userId,
@@ -73,7 +68,7 @@ export const checkAuthorizationUpdated = async <T extends z.ZodRawShape>({
         return true;
       }
     } else {
-      if (accessItem.type === "projectTeam") {
+      /*if (accessItem.type === "projectTeam") {
         const projectPermission = await getProjectPermissionByUserId(userId, accessItem.projectId);
         if (
           !projectPermission ||
@@ -91,7 +86,7 @@ export const checkAuthorizationUpdated = async <T extends z.ZodRawShape>({
         ) {
           continue;
         }
-      }
+      }*/
       return true;
     }
   }

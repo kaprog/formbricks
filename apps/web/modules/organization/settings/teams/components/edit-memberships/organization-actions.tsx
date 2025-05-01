@@ -3,7 +3,6 @@
 import { FORMBRICKS_ENVIRONMENT_ID_LS } from "@/lib/localStorage";
 import { getAccessFlags } from "@/lib/membership/utils";
 import { getFormattedErrorMessage } from "@/lib/utils/helper";
-import { TOrganizationTeam } from "@/modules/ee/teams/team-list/types/team";
 import { inviteUserAction, leaveOrganizationAction } from "@/modules/organization/settings/teams/actions";
 import { InviteMemberModal } from "@/modules/organization/settings/teams/components/invite-member/invite-member-modal";
 import { TInvitee } from "@/modules/organization/settings/teams/types/invites";
@@ -22,7 +21,7 @@ interface OrganizationActionsProps {
   membershipRole?: TOrganizationRole;
   isLeaveOrganizationDisabled: boolean;
   organization: TOrganization;
-  teams: TOrganizationTeam[];
+  teams: unknown[];
   isInviteDisabled: boolean;
   canDoRoleManagement: boolean;
   isFormbricksCloud: boolean;

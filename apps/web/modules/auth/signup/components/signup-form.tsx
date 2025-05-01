@@ -4,7 +4,6 @@ import { getFormattedErrorMessage } from "@/lib/utils/helper";
 import { createUserAction } from "@/modules/auth/signup/actions";
 import { TermsPrivacyLinks } from "@/modules/auth/signup/components/terms-privacy-links";
 import { captureFailedSignup } from "@/modules/auth/signup/lib/utils";
-import { SSOOptions } from "@/modules/ee/sso/components/sso-options";
 import { Button } from "@/modules/ui/components/button";
 import { FormControl, FormError, FormField, FormItem } from "@/modules/ui/components/form";
 import { Input } from "@/modules/ui/components/input";
@@ -60,21 +59,12 @@ export const SignupForm = ({
   privacyUrl,
   termsUrl,
   emailAuthEnabled,
-  googleOAuthEnabled,
-  githubOAuthEnabled,
-  azureOAuthEnabled,
-  oidcOAuthEnabled,
-  oidcDisplayName,
   userLocale,
   emailFromSearchParams,
   emailVerificationDisabled,
   defaultOrganizationId,
   defaultOrganizationRole,
-  isSsoEnabled,
-  samlSsoEnabled,
   isTurnstileConfigured,
-  samlTenant,
-  samlProduct,
   turnstileSiteKey,
 }: SignupFormProps) => {
   const [showLogin, setShowLogin] = useState(false);
@@ -272,20 +262,6 @@ export const SignupForm = ({
             )}
           </form>
         </FormProvider>
-      )}
-      {isSsoEnabled && (
-        <SSOOptions
-          googleOAuthEnabled={googleOAuthEnabled}
-          githubOAuthEnabled={githubOAuthEnabled}
-          azureOAuthEnabled={azureOAuthEnabled}
-          oidcOAuthEnabled={oidcOAuthEnabled}
-          oidcDisplayName={oidcDisplayName}
-          samlSsoEnabled={samlSsoEnabled}
-          samlTenant={samlTenant}
-          samlProduct={samlProduct}
-          callbackUrl={callbackUrl}
-          source="signup"
-        />
       )}
       <TermsPrivacyLinks termsUrl={termsUrl} privacyUrl={privacyUrl} />
       <div className="mt-9 text-center text-xs">

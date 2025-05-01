@@ -5,10 +5,6 @@ import { getOrganizationProjectsCount } from "@/lib/project/service";
 import { updateUser } from "@/lib/user/service";
 import { authenticatedActionClient } from "@/lib/utils/action-client";
 import { checkAuthorizationUpdated } from "@/lib/utils/action-client-middleware";
-import {
-  getOrganizationProjectsLimit,
-  getRoleManagementPermission,
-} from "@/modules/ee/license-check/lib/utils";
 import { createProject } from "@/modules/projects/settings/lib/project";
 import { z } from "zod";
 import { ZId } from "@formbricks/types/common";
@@ -46,7 +42,7 @@ export const createProjectAction = authenticatedActionClient
       throw new Error("Organization not found");
     }
 
-    const organizationProjectsLimit = await getOrganizationProjectsLimit(organization.billing.limits);
+    const organizationProjectsLimit = Number.MAX_SAFE_INTEGER;
     const organizationProjectsCount = await getOrganizationProjectsCount(organization.id);
 
     if (organizationProjectsCount >= organizationProjectsLimit) {
@@ -54,7 +50,7 @@ export const createProjectAction = authenticatedActionClient
     }
 
     if (parsedInput.data.teamIds && parsedInput.data.teamIds.length > 0) {
-      const canDoRoleManagement = await getRoleManagementPermission(organization.billing.plan);
+      const canDoRoleManagement = false;
 
       if (!canDoRoleManagement) {
         throw new OperationNotAllowedError("You do not have permission to manage roles");

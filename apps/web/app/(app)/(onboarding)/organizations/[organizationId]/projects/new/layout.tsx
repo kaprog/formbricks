@@ -3,7 +3,6 @@ import { getAccessFlags } from "@/lib/membership/utils";
 import { getOrganization } from "@/lib/organization/service";
 import { getOrganizationProjectsCount } from "@/lib/project/service";
 import { authOptions } from "@/modules/auth/lib/authOptions";
-import { getOrganizationProjectsLimit } from "@/modules/ee/license-check/lib/utils";
 import { getTranslate } from "@/tolgee/server";
 import { getServerSession } from "next-auth";
 import { notFound, redirect } from "next/navigation";
@@ -28,7 +27,7 @@ const OnboardingLayout = async (props) => {
     throw new Error(t("common.organization_not_found"));
   }
 
-  const organizationProjectsLimit = await getOrganizationProjectsLimit(organization.billing.limits);
+  const organizationProjectsLimit = Number.MAX_SAFE_INTEGER;
   const organizationProjectsCount = await getOrganizationProjectsCount(organization.id);
 
   if (organizationProjectsCount >= organizationProjectsLimit) {

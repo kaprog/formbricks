@@ -5,7 +5,6 @@ import { addMultiLanguageLabels, extractLanguageCodes } from "@/lib/i18n/utils";
 import { structuredClone } from "@/lib/pollyfills/structuredClone";
 import { isConditionGroup } from "@/lib/surveyLogic/utils";
 import { checkForEmptyFallBackValue, extractRecallInfo } from "@/lib/utils/recall";
-import { MultiLanguageCard } from "@/modules/ee/multi-language-surveys/components/multi-language-card";
 import { AddEndingCardButton } from "@/modules/survey/editor/components/add-ending-card-button";
 import { AddQuestionButton } from "@/modules/survey/editor/components/add-question-button";
 import { EditEndingCard } from "@/modules/survey/editor/components/edit-ending-card";
@@ -73,12 +72,10 @@ export const QuestionsView = ({
   localSurvey,
   setLocalSurvey,
   project,
-  projectLanguages,
   invalidQuestions,
   setInvalidQuestions,
   setSelectedLanguageCode,
   selectedLanguageCode,
-  isMultiLanguageAllowed,
   isFormbricksCloud,
   plan,
   isCxMode,
@@ -521,18 +518,6 @@ export const QuestionsView = ({
               setLocalSurvey={setLocalSurvey}
               activeQuestionId={activeQuestionId}
               setActiveQuestionId={setActiveQuestionId}
-            />
-
-            <MultiLanguageCard
-              localSurvey={localSurvey}
-              projectLanguages={projectLanguages}
-              setLocalSurvey={setLocalSurvey}
-              setActiveQuestionId={setActiveQuestionId}
-              activeQuestionId={activeQuestionId}
-              isMultiLanguageAllowed={isMultiLanguageAllowed}
-              isFormbricksCloud={isFormbricksCloud}
-              setSelectedLanguageCode={setSelectedLanguageCode}
-              locale={locale}
             />
           </>
         )}

@@ -1,22 +1,17 @@
 import { getIsFreshInstance } from "@/lib/instance/service";
 import { authOptions } from "@/modules/auth/lib/authOptions";
-import { getIsMultiOrgEnabled } from "@/modules/ee/license-check/lib/utils";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { Toaster } from "react-hot-toast";
 
 export const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
-  const [session, isFreshInstance, isMultiOrgEnabled] = await Promise.all([
-    getServerSession(authOptions),
-    getIsFreshInstance(),
-    getIsMultiOrgEnabled(),
-  ]);
+  const [session, isFreshInstance] = await Promise.all([getServerSession(authOptions), getIsFreshInstance()]);
 
   if (session) {
     redirect(`/`);
   }
 
-  if (isFreshInstance && !isMultiOrgEnabled) {
+  if (isFreshInstance) {
     redirect("/setup/intro");
   }
   return (

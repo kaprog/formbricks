@@ -1,4 +1,3 @@
-import { TInviteUpdateInput } from "@/modules/ee/role-management/types/invites";
 import { InviteWithCreator } from "@/modules/organization/settings/teams/types/invites";
 import { OrganizationRole, TeamUserRole } from "@prisma/client";
 import { Session } from "next-auth";
@@ -78,10 +77,10 @@ export const mockOrganization = createMockOrganization("scale");
 export const mockOrganizationFree = createMockOrganization("startup");
 
 // Mock invite data with different roles
-export const mockInviteDataMember: TInviteUpdateInput = { role: "member" };
-export const mockInviteDataManager: TInviteUpdateInput = { role: "manager" };
-export const mockInviteDataOwner: TInviteUpdateInput = { role: "owner" };
-export const mockInviteDataBilling: TInviteUpdateInput = { role: "billing" };
+export const mockInviteDataMember = { role: "member" };
+export const mockInviteDataManager = { role: "manager" };
+export const mockInviteDataOwner = { role: "owner" };
+export const mockInviteDataBilling = { role: "billing" };
 
 // Mock input objects for actions
 export const mockDeleteInviteInput = {

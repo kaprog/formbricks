@@ -7,10 +7,7 @@ import {
   ZContactLinksBySegmentParams,
   ZContactLinksBySegmentQuery,
 } from "@/modules/api/v2/management/surveys/[surveyId]/contact-links/segments/[segmentId]/types/contact";
-import { getContactSurveyLink } from "@/modules/ee/contacts/lib/contact-survey-link";
-import { getIsContactsEnabled } from "@/modules/ee/license-check/lib/utils";
 import { hasPermission } from "@/modules/organization/settings/api-keys/lib/utils";
-import { logger } from "@formbricks/logger";
 
 export const GET = async (
   request: Request,
@@ -33,7 +30,7 @@ export const GET = async (
         });
       }
 
-      const isContactsEnabled = await getIsContactsEnabled();
+      const isContactsEnabled = false;
       if (!isContactsEnabled) {
         return handleApiError(request, {
           type: "forbidden",
@@ -85,24 +82,10 @@ export const GET = async (
         .map((contact) => {
           const { contactId, attributes } = contact;
 
-          const surveyUrlResult = getContactSurveyLink(
-            contactId,
-            params.surveyId,
-            query?.expirationDays || undefined
-          );
-
-          if (!surveyUrlResult.ok) {
-            logger.error(
-              { error: surveyUrlResult.error, contactId: contactId, surveyId: params.surveyId },
-              "Failed to generate survey URL for contact"
-            );
-            return null;
-          }
-
           return {
             contactId,
             attributes,
-            surveyUrl: surveyUrlResult.data,
+            surveyUrl: "",
             expiresAt,
           };
         })

@@ -10,7 +10,6 @@ import { getSurveys } from "@/lib/survey/service";
 import { anySurveyHasFilters } from "@/lib/survey/utils";
 import { diffInDays } from "@/lib/utils/datetime";
 import { validateInputs } from "@/lib/utils/validate";
-import { evaluateSegment } from "@/modules/ee/contacts/segments/lib/segments";
 import { Prisma } from "@prisma/client";
 import { cache as reactCache } from "react";
 import { prisma } from "@formbricks/database";
@@ -20,12 +19,7 @@ import { DatabaseError, ResourceNotFoundError } from "@formbricks/types/errors";
 import { TSurvey } from "@formbricks/types/surveys/types";
 
 export const getSyncSurveys = reactCache(
-  (
-    environmentId: string,
-    contactId: string,
-    contactAttributes: Record<string, string | number>,
-    deviceType: "phone" | "desktop" = "desktop"
-  ): Promise<TSurvey[]> =>
+  (environmentId: string, contactId: string): Promise<TSurvey[]> =>
     cache(
       async () => {
         validateInputs([environmentId, ZId]);
@@ -127,19 +121,7 @@ export const getSyncSurveys = reactCache(
               return survey;
             }
 
-            // Evaluate the segment filters
-            const result = await evaluateSegment(
-              {
-                attributes: contactAttributes ?? {},
-                deviceType,
-                environmentId,
-                contactId,
-                userId: String(contactAttributes.userId),
-              },
-              segment.filters
-            );
-
-            return result ? survey : null;
+            return null;
           });
 
           const resolvedSurveys = await Promise.all(surveyPromises);

@@ -5,7 +5,6 @@ import { organizationCache } from "@/lib/cache/organization";
 import { teamCache } from "@/lib/cache/team";
 import { ITEMS_PER_PAGE } from "@/lib/constants";
 import { validateInputs } from "@/lib/utils/validate";
-import { TOrganizationMember } from "@/modules/ee/teams/team-list/types/team";
 import { Prisma } from "@prisma/client";
 import { cache as reactCache } from "react";
 import { prisma } from "@formbricks/database";
@@ -201,7 +200,7 @@ export const getMembershipsByUserId = reactCache(
 );
 
 export const getMembersByOrganizationId = reactCache(
-  async (organizationId: string): Promise<TOrganizationMember[]> =>
+  async (organizationId: string): Promise<unknown[]> =>
     cache(
       async () => {
         validateInputs([organizationId, ZString]);

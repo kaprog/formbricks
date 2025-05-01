@@ -7,7 +7,6 @@ import { validateLocalSignedUrl } from "@/lib/crypto";
 import { getOrganizationByEnvironmentId } from "@/lib/organization/service";
 import { putFileToLocalStorage } from "@/lib/storage/service";
 import { getSurvey } from "@/lib/survey/service";
-import { getBiggerUploadFileSizePermission } from "@/modules/ee/license-check/lib/utils";
 import { NextRequest } from "next/server";
 import { logger } from "@formbricks/logger";
 
@@ -112,7 +111,7 @@ export const POST = async (req: NextRequest, context: Context): Promise<Response
   }
 
   try {
-    const isBiggerFileUploadAllowed = await getBiggerUploadFileSizePermission(organization.billing.plan);
+    const isBiggerFileUploadAllowed = false;
     const bytes = await file.arrayBuffer();
     const fileBuffer = Buffer.from(bytes);
 
