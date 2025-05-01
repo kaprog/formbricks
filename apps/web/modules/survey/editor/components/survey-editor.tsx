@@ -39,7 +39,6 @@ interface SurveyEditorProps {
   plan: TOrganizationBillingPlan;
   isCxMode: boolean;
   locale: TUserLocale;
-  projectPermission: null;
   mailFrom: string;
   projectLanguages: Language[];
   isSurveyFollowUpsAllowed: boolean;
@@ -65,7 +64,6 @@ export const SurveyEditor = ({
   plan,
   isCxMode = false,
   locale,
-  projectPermission,
   mailFrom,
   isSurveyFollowUpsAllowed = false,
   userEmail,
@@ -225,7 +223,6 @@ export const SurveyEditor = ({
               responseCount={responseCount}
               membershipRole={membershipRole}
               isUserTargetingAllowed={isUserTargetingAllowed}
-              projectPermission={projectPermission}
               isFormbricksCloud={isFormbricksCloud}
             />
           )}

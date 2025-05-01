@@ -250,8 +250,8 @@ export const mockEndings = [
     subheader: {
       default: "We appreciate your feedback.",
     },
-    buttonLink: "https://formbricks.com",
-    buttonLabel: { default: "Create your own Survey" },
+    buttonLink: undefined,
+    buttonLabel: undefined,
   } as TSurveyEndScreenCard,
 ];
 
@@ -289,8 +289,8 @@ export const mockSurvey: TSurvey = {
       subheader: {
         default: "We appreciate your feedback.",
       },
-      buttonLink: "https://formbricks.com",
-      buttonLabel: { default: "Create your own Survey" },
+      buttonLink: undefined,
+      buttonLabel: undefined,
     },
   ],
   hiddenFields: {

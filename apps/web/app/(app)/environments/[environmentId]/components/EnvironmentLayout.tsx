@@ -3,7 +3,6 @@ import { TopControlBar } from "@/app/(app)/environments/[environmentId]/componen
 import { IS_DEVELOPMENT, IS_FORMBRICKS_CLOUD } from "@/lib/constants";
 import { getEnvironment, getEnvironments } from "@/lib/environment/service";
 import { getMembershipByUserIdOrganizationId } from "@/lib/membership/service";
-import { getAccessFlags } from "@/lib/membership/utils";
 import {
   getMonthlyActiveOrganizationPeopleCount,
   getMonthlyOrganizationResponseCount,
@@ -55,13 +54,7 @@ export const EnvironmentLayout = async ({ environmentId, session, children }: En
 
   const currentUserMembership = await getMembershipByUserIdOrganizationId(session?.user.id, organization.id);
   const membershipRole = currentUserMembership?.role;
-  const { isMember } = getAccessFlags(membershipRole);
 
-  const projectPermission = null;
-
-  if (isMember && !projectPermission) {
-    throw new Error(t("common.project_permission_not_found"));
-  }
 
   const isMultiOrgEnabled = false;
 
@@ -111,7 +104,6 @@ export const EnvironmentLayout = async ({ environmentId, session, children }: En
             environment={environment}
             environments={environments}
             membershipRole={membershipRole}
-            projectPermission={projectPermission}
           />
           <div className="mt-14">{children}</div>
         </div>

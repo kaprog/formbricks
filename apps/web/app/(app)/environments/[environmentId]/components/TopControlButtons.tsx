@@ -1,12 +1,9 @@
 "use client";
 
-import { EnvironmentSwitch } from "@/app/(app)/environments/[environmentId]/components/EnvironmentSwitch";
-import { getAccessFlags } from "@/lib/membership/utils";
 import { Button } from "@/modules/ui/components/button";
 import { TooltipRenderer } from "@/modules/ui/components/tooltip";
 import { useTranslate } from "@tolgee/react";
-import { BugIcon, CircleUserIcon, PlusIcon } from "lucide-react";
-import Link from "next/link";
+import { CircleUserIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { TEnvironment } from "@formbricks/types/environment";
 import { TOrganizationRole } from "@formbricks/types/memberships";
@@ -15,28 +12,24 @@ interface TopControlButtonsProps {
   environment: TEnvironment;
   environments: TEnvironment[];
   membershipRole?: TOrganizationRole;
-  projectPermission: null;
 }
 
-export const TopControlButtons = ({ environment, environments, membershipRole }: TopControlButtonsProps) => {
+export const TopControlButtons = ({ environment }: TopControlButtonsProps) => {
   const { t } = useTranslate();
   const router = useRouter();
 
-  const { isMember, isBilling } = getAccessFlags(membershipRole);
-  const hasReadAccess = true;
-  const isReadOnly = isMember && hasReadAccess;
 
   return (
     <div className="z-50 flex items-center space-x-2">
-      {!isBilling && <EnvironmentSwitch environment={environment} environments={environments} />}
+      {/*{!isBilling && <EnvironmentSwitch environment={environment} environments={environments} />}*/}
 
-      <TooltipRenderer tooltipContent={t("common.share_feedback")}>
+      {/*<TooltipRenderer tooltipContent={t("common.share_feedback")}>
         <Button variant="ghost" size="icon" className="h-fit w-fit bg-slate-50 p-1" asChild>
           <Link href="https://github.com/formbricks/formbricks/issues" target="_blank">
             <BugIcon />
           </Link>
         </Button>
-      </TooltipRenderer>
+      </TooltipRenderer>*/}
 
       <TooltipRenderer tooltipContent={t("common.account")}>
         <Button
@@ -49,7 +42,7 @@ export const TopControlButtons = ({ environment, environments, membershipRole }:
           <CircleUserIcon />
         </Button>
       </TooltipRenderer>
-      {isBilling || isReadOnly ? (
+      {/*{isBilling ? (
         <></>
       ) : (
         <TooltipRenderer tooltipContent={t("common.new_survey")}>
@@ -63,7 +56,7 @@ export const TopControlButtons = ({ environment, environments, membershipRole }:
             <PlusIcon />
           </Button>
         </TooltipRenderer>
-      )}
+      )}*/}
     </div>
   );
 };

@@ -26,7 +26,7 @@ export const ZUserName = z
   .string()
   .trim()
   .min(1, { message: "Name should be at least 1 character long" })
-  .regex(/^[\p{L}\p{M}\s'\d-]+$/u, "Invalid name format");
+  //.regex(/^[\p{L}\p{M}\s'\d-]+$/u, "Invalid name format");
 
 export const ZUserEmail = z.string().max(255).email({ message: "Invalid email" });
 

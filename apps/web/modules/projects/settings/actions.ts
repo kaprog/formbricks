@@ -33,6 +33,7 @@ export const updateProjectAction = authenticatedActionClient
         {
           type: "projectTeam",
           projectId: parsedInput.projectId,
+          minPermission: "manage",
         },
       ],
     });

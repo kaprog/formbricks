@@ -57,5 +57,4 @@ export const mockEnvironment: TEnvironment = {
   type: "production",
   projectId: mockId,
   appSetupCompleted: false,
-  websiteSetupCompleted: false,
 };

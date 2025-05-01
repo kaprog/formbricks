@@ -19,7 +19,7 @@ import {
 } from "@/lib/posthogServer";
 import { getProjectByEnvironmentId } from "@/lib/project/service";
 import { COLOR_DEFAULTS } from "@/lib/styling/constants";
-import { NextRequest, userAgent } from "next/server";
+import { NextRequest } from "next/server";
 import { prisma } from "@formbricks/database";
 import { logger } from "@formbricks/logger";
 import { ZJsPeopleUserIdInput } from "@formbricks/types/js";
@@ -40,7 +40,7 @@ export const GET = async (
 ): Promise<Response> => {
   const params = await props.params;
   try {
-    const { device } = userAgent(request);
+    //const { device } = userAgent(request);
 
     // validate using zod
     const inputValidation = ZJsPeopleUserIdInput.safeParse({
@@ -152,8 +152,8 @@ export const GET = async (
       getSyncSurveys(
         environmentId,
         contact.id,
-        contactAttributes,
-        device.type === "mobile" ? "phone" : "desktop"
+        //contactAttributes,
+        //device.type === "mobile" ? "phone" : "desktop"
       ),
       getActionClasses(environmentId),
     ]);

@@ -21,7 +21,7 @@ import { TResponse } from "@formbricks/types/responses";
 import { TSurvey } from "@formbricks/types/surveys/types";
 
 const fbLogoUrl = FB_LOGO_URL;
-const logoLink = "https://formbricks.com?utm_source=email_header&utm_medium=email";
+const logoLink = "https://sensus.org";
 
 interface FollowUpEmailProps {
   html: string;
@@ -87,13 +87,13 @@ export async function FollowUpEmail({
           </Container>
 
           <Section className="mt-4 text-center text-sm">
-            <Link
+            {/*<Link
               className="m-0 font-normal text-slate-500"
               href="https://formbricks.com/?utm_source=email_header&utm_medium=email"
               target="_blank"
               rel="noopener noreferrer">
               {t("emails.email_template_text_1")}
-            </Link>
+            </Link>*/}
             {IMPRINT_ADDRESS && (
               <Text className="m-0 font-normal text-slate-500 opacity-50">{IMPRINT_ADDRESS}</Text>
             )}

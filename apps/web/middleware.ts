@@ -139,6 +139,7 @@ export const middleware = async (originalRequest: NextRequest) => {
   }
 
   // Handle authentication
+
   const authResponse = await handleAuth(request);
   if (authResponse) return authResponse;
 

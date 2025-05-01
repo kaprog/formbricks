@@ -10,11 +10,28 @@ services:
 #    ports:
 #      - 5432:5432
 
+  main:
+    image: node:22-alpine3.21
+    command: 'sleep 1000000000'
+    volumes:
+      - ./:/app
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.forms-hexaunits-com.loadbalancer.server.port=3000
+      - traefik.http.services.forms-hexaunits-com.loadbalancer.server.scheme=http
+      - traefik.http.routers.forms-hexaunits-com.rule=Host("forms.localhost")
+      - traefik.http.routers.forms-hexaunits-com.middlewares=oauth2-proxy@docker
+      - traefik.http.routers.forms-hexaunits-com.entrypoints=web
+    networks:
+      - postgres_default
+
   mailhog:
     image: arjenz/mailhog # Copy of mailhog/MailHog to support linux/arm64
     ports:
       - 8025:8025 # web ui
       - 1025:1025 # smtp server
+    networks:
+      - postgres_default
 
   redis:
     image: redis:7.0.11
@@ -23,6 +40,8 @@ services:
       - 6379:6379
     volumes:
       - redis-data:/data
+    networks:
+      - postgres_default
 
   minio:
     image: minio/minio:RELEASE.2025-02-28T09-55-16Z
@@ -35,6 +54,8 @@ services:
       - "9001:9001"  # Console
     volumes:
       - minio-data:/data
+    networks:
+      - postgres_default
 
 volumes:
   postgres:
@@ -43,3 +64,7 @@ volumes:
     driver: local
   minio-data:
     driver: local
+
+networks:
+  postgres_default:
+    external: true

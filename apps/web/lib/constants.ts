@@ -18,9 +18,9 @@ export const ENCRYPTION_KEY = env.ENCRYPTION_KEY;
 
 // Other
 export const CRON_SECRET = env.CRON_SECRET;
-export const DEFAULT_BRAND_COLOR = "#64748b";
+export const DEFAULT_BRAND_COLOR = "#c72127";
 export const FB_LOGO_URL =
-  "https://s3.eu-central-1.amazonaws.com/listmonk-formbricks/Formbricks-Light-transparent.png";
+  "https://cdn.sensus.org/branding/logo-rgb-h128.png";
 
 export const PRIVACY_URL = env.PRIVACY_URL;
 export const TERMS_URL = env.TERMS_URL;

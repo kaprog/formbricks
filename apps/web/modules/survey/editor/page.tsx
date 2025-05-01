@@ -31,7 +31,7 @@ export const SurveyEditorPage = async (props) => {
   const searchParams = await props.searchParams;
   const params = await props.params;
 
-  const { session, isMember, environment, hasReadAccess, currentUserMembership, projectPermission } =
+  const { session, environment, currentUserMembership } =
     await getEnvironmentAuth(params.environmentId);
 
   const t = await getTranslate();
@@ -51,7 +51,7 @@ export const SurveyEditorPage = async (props) => {
     throw new Error(t("common.organization_not_found"));
   }
 
-  const isSurveyCreationDeletionDisabled = isMember && hasReadAccess;
+  const isSurveyCreationDeletionDisabled = false;//isMember && hasReadAccess;
   const locale = session.user.id ? await getUserLocale(session.user.id) : undefined;
 
   const isUserTargetingAllowed = false;
@@ -85,7 +85,6 @@ export const SurveyEditorPage = async (props) => {
       contactAttributeKeys={[]}
       responseCount={responseCount}
       membershipRole={currentUserMembership.role}
-      projectPermission={projectPermission}
       colors={SURVEY_BG_COLORS}
       segments={[]}
       isUserTargetingAllowed={isUserTargetingAllowed}

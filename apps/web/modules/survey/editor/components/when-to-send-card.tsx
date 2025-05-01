@@ -20,7 +20,6 @@ interface WhenToSendCardProps {
   environmentId: string;
   propActionClasses: ActionClass[];
   membershipRole?: OrganizationRole;
-  projectPermission: null;
 }
 
 export const WhenToSendCard = ({

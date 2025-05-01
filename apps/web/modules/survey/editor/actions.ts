@@ -55,6 +55,7 @@ export const updateSurveyAction = authenticatedActionClient
         {
           type: "projectTeam",
           projectId: await getProjectIdFromSurveyId(parsedInput.id),
+            minPermission: "readWrite",
         },
       ],
     });
@@ -83,6 +84,7 @@ export const refetchProjectAction = authenticatedActionClient
         },
         {
           type: "projectTeam",
+            minPermission: "readWrite",
           projectId: parsedInput.projectId,
         },
       ],
@@ -187,6 +189,7 @@ export const createActionClassAction = authenticatedActionClient
         },
         {
           type: "projectTeam",
+            minPermission: "readWrite",
           projectId: await getProjectIdFromEnvironmentId(parsedInput.action.environmentId),
         },
       ],

@@ -28,7 +28,7 @@ export const deleteActionClassAction = authenticatedActionClient
         },
         {
           type: "projectTeam",
-          minPermission: "readWrite",
+        minPermission: "readWrite",
           projectId: await getProjectIdFromActionClassId(parsedInput.actionClassId),
         },
       ],
@@ -60,7 +60,7 @@ export const updateActionClassAction = authenticatedActionClient
         },
         {
           type: "projectTeam",
-          minPermission: "readWrite",
+            minPermission: "readWrite",
           projectId: await getProjectIdFromActionClassId(parsedInput.actionClassId),
         },
       ],
@@ -90,7 +90,7 @@ export const getActiveInactiveSurveysAction = authenticatedActionClient
         },
         {
           type: "projectTeam",
-          minPermission: "read",
+            minPermission: "read",
           projectId: await getProjectIdFromActionClassId(parsedInput.actionClassId),
         },
       ],

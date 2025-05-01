@@ -1,5 +1,6 @@
 export function FormbricksBranding() {
-  return (
+  return "";
+    /*(
     <a
       href="https://formbricks.com?utm_source=survey_branding"
       target="_blank"
@@ -13,5 +14,5 @@ export function FormbricksBranding() {
         </b>
       </p>
     </a>
-  );
+  );*/
 }

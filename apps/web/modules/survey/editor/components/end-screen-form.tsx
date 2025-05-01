@@ -1,6 +1,6 @@
 "use client";
 
-import { createI18nString, extractLanguageCodes, getLocalizedValue } from "@/lib/i18n/utils";
+import { createI18nString, extractLanguageCodes } from "@/lib/i18n/utils";
 import { headlineToRecall, recallToHeadline } from "@/lib/utils/recall";
 import { QuestionFormInput } from "@/modules/survey/components/question-form-input";
 import { RecallWrapper } from "@/modules/survey/components/question-form-input/components/recall-wrapper";
@@ -41,8 +41,9 @@ export const EndScreenForm = ({
   const surveyLanguageCodes = extractLanguageCodes(localSurvey.languages);
 
   const [showEndingCardCTA, setshowEndingCardCTA] = useState<boolean>(
-    endingCard.type === "endScreen" &&
-      (!!getLocalizedValue(endingCard.buttonLabel, selectedLanguageCode) || !!endingCard.buttonLink)
+    /*endingCard.type === "endScreen" &&
+      (!!getLocalizedValue(endingCard.buttonLabel, selectedLanguageCode) || !!endingCard.buttonLink)*/
+      false
   );
   return (
     <form>

@@ -58,7 +58,7 @@ export const getEnvironmentAuth = cache(async (environmentId: string): Promise<T
     hasReadWriteAccess = false,
     hasManageAccess = false;
 
-  const isReadOnly = isMember && hasReadAccess;
+  const isReadOnly = false;// isMember && hasReadAccess;
 
   return {
     environment,

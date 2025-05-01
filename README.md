@@ -1,7 +1,11 @@
 This is a fork of [Formbricks](https://github.com/formbricks/formbricks), licensed under the GNU AGPLv3.
 Modifications include:
 - removal of Enterprise features (whole apps/web/modules/ee directory) and adapting code to work without it 
-
+- change of branding
+- simple mechanism to consume authentication headers from oauth2proxy and automatically create/login to account indicated by external IdP
+- UI changes related to permission management (e.g. non-owners won't see sidebar, some top bar icons are hidden etc.)
+- removal of survey template list
+- updated database migration script to allow use of non-superuser account
 
 ---
 

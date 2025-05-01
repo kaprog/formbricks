@@ -3418,7 +3418,7 @@ const supportiveWorkCulture = (t: TFnType): TTemplate => {
 };
 
 export const templates = (t: TFnType): TTemplate[] => [
-  cartAbandonmentSurvey(t),
+  /*cartAbandonmentSurvey(t),
   siteAbandonmentSurvey(t),
   productMarketFitSuperhuman(t),
   onboardingSegmentation(t),
@@ -3465,7 +3465,7 @@ export const templates = (t: TFnType): TTemplate[] => [
   recognitionAndReward(t),
   professionalDevelopmentGrowth(t),
   professionalDevelopmentSurvey(t),
-  careerDevelopmentSurvey(t),
+  careerDevelopmentSurvey(t),*/
 ];
 
 export const customSurveyTemplate = (t: TFnType): TTemplate => {

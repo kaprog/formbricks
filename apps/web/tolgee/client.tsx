@@ -8,8 +8,9 @@ import { TolgeeBase } from "./shared";
 // Try to import branch.json, but handle the case where it doesn't exist
 let branchName: string | undefined;
 try {
-  const branch = require("../../../branch.json");
-  branchName = branch.branchName;
+  //const branch = require("../../../branch.json");
+  //branchName = branch.branchName;
+  branchName = undefined; // TODO ???
 } catch (e) {
   // File doesn't exist in production, so we'll use undefined
   branchName = undefined;

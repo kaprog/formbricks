@@ -19,7 +19,6 @@ interface SettingsViewProps {
   responseCount: number;
   membershipRole?: OrganizationRole;
   isUserTargetingAllowed?: boolean;
-  projectPermission: null;
   isFormbricksCloud: boolean;
 }
 
@@ -31,7 +30,6 @@ export const SettingsView = ({
   responseCount,
   membershipRole,
   isUserTargetingAllowed = false,
-  projectPermission,
   isFormbricksCloud,
 }: SettingsViewProps) => {
   const isAppSurvey = localSurvey.type === "app";
@@ -58,7 +56,6 @@ export const SettingsView = ({
         environmentId={environment.id}
         propActionClasses={actionClasses}
         membershipRole={membershipRole}
-        projectPermission={projectPermission}
       />
 
       <ResponseOptionsCard

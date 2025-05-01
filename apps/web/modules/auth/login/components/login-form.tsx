@@ -12,14 +12,14 @@ import { useTranslate } from "@tolgee/react";
 import { signIn } from "next-auth/react";
 import Link from "next/dist/client/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState} from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { z } from "zod";
 
 const ZLoginForm = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
+  email: z.string(),
+  password: z.string(),
   totpCode: z.string().optional(),
   backupCode: z.string().optional(),
 });
@@ -107,18 +107,20 @@ export const LoginForm = ({
     }
   };
 
-  const [showLogin, setShowLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(true);
   const [totpLogin, setTotpLogin] = useState(false);
   const [totpBackup, setTotpBackup] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const inviteToken = callbackUrl ? new URL(callbackUrl).searchParams.get("token") : null;
-  const [lastLoggedInWith, setLastLoggedInWith] = useState("");
+  const adminMode = searchParams?.get("admin") === "true";
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setLastLoggedInWith(localStorage.getItem(FORMBRICKS_LOGGED_IN_WITH_LS) || "");
-    }
+
+    if (!adminMode)
+      formRef.current?.requestSubmit();
+
   }, []);
+
 
   const formLabel = useMemo(() => {
     if (totpBackup) {
@@ -129,7 +131,7 @@ export const LoginForm = ({
       return t("auth.login.enter_your_two_factor_authentication_code");
     }
 
-    return t("auth.login.login_to_your_account");
+    return adminMode ? t("auth.login.login_to_your_account") : '';
   }, [t, totpBackup, totpLogin]);
 
   const TwoFactorComponent = useMemo(() => {
@@ -142,10 +144,10 @@ export const LoginForm = ({
         <h1 className="mb-4 text-slate-700">{formLabel}</h1>
 
         <div className="space-y-2">
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+          <form ref={formRef} onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
             {TwoFactorComponent}
             {showLogin && (
-              <div className={cn(totpLogin && "hidden", "space-y-2")}>
+              <div className={cn(totpLogin && "hidden", "space-y-2")} hidden={!adminMode}>
                 <FormField
                   control={form.control}
                   name="email"
@@ -157,7 +159,6 @@ export const LoginForm = ({
                             id="email"
                             type="email"
                             autoComplete="email"
-                            required
                             value={field.value}
                             onChange={(email) => field.onChange(email)}
                             placeholder="work@email.com"
@@ -183,7 +184,6 @@ export const LoginForm = ({
                             aria-placeholder="password"
                             aria-label="password"
                             aria-required="true"
-                            required
                             className="focus:border-brand-dark focus:ring-brand-dark block w-full rounded-md border-slate-300 pr-8 shadow-sm sm:text-sm"
                             value={field.value}
                             onChange={(password) => field.onChange(password)}
@@ -218,10 +218,10 @@ export const LoginForm = ({
                 }}
                 className="relative w-full justify-center"
                 loading={form.formState.isSubmitting}>
-                {totpLogin ? t("common.submit") : t("auth.login.login_with_email")}
-                {lastLoggedInWith && lastLoggedInWith === "Email" ? (
+                {totpLogin ? t("common.submit") : adminMode ? t("auth.login.login_with_email") : 'SensUs Identity login'}
+                {/*{lastLoggedInWith && lastLoggedInWith === "Email" ? (
                   <span className="absolute right-3 text-xs opacity-50">{t("auth.last_used")}</span>
-                ) : null}
+                ) : null}*/}
               </Button>
             )}
           </form>

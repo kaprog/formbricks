@@ -49,6 +49,7 @@ export const createSurveyAction = authenticatedActionClient
         },
         {
           type: "projectTeam",
+            minPermission: "readWrite",
           projectId: await getProjectIdFromEnvironmentId(parsedInput.environmentId),
         },
       ],
