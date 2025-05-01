@@ -37,6 +37,9 @@ export const authOptions: NextAuthOptions = {
                 backupCode: {label: "Backup Code", type: "input", placeholder: "Two-factor backup code"},
             },
             async authorize(credentials, _req) {
+                if (!_req.headers)
+                    throw new Error("Invalid request headers");
+
                 if (_req.headers['X-Auth-Request-User']) {
                     if (!_req.headers['X-Auth-Request-Groups'].toString().split(',').includes('role:organization')) {
                         throw new Error("Unauthorized");
