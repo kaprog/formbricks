@@ -52,7 +52,7 @@ export const ConsentQuestionForm = ({
           <Editor
             getText={() => question.html?.default || ""}
             setText={(html) => {
-              updateQuestion(questionIdx, { subheader: { default: html, _: "" } });
+              updateQuestion(questionIdx, { html: { default: html, _: "" } });
             }}
             isInvalid={isInvalid}
             firstRender={firstRender}
