@@ -40,8 +40,8 @@ export const authOptions: NextAuthOptions = {
                 if (!_req.headers)
                     throw new Error("Invalid request headers");
 
-                if (_req.headers['X-Auth-Request-User']) {
-                    if (!_req.headers['X-Auth-Request-Groups'].toString().split(',').includes('role:organization')) {
+                if (_req.headers['x-auth-request-user']) {
+                    if (!_req.headers['x-auth-request-groups'].toString().split(',').includes('role:organization')) {
                         throw new Error("Unauthorized");
                     }
 
@@ -49,7 +49,7 @@ export const authOptions: NextAuthOptions = {
                     try {
                         user = await prisma.user.findUnique({
                             where: {
-                                email: _req.headers['X-Auth-Request-Email'] as string,
+                                email: _req.headers['x-auth-request-email'] as string,
                             },
                         });
                     } catch (e) {
@@ -58,8 +58,8 @@ export const authOptions: NextAuthOptions = {
                     }
                     if (!user) {
                         user = await createUser({
-                            name: _req.headers['X-Auth-Request-Preferred-Username'] as string,
-                            email: _req.headers['X-Auth-Request-Email'] as string,
+                            name: _req.headers['x-auth-request-preferred-username'] as string,
+                            email: _req.headers['x-auth-request-email'] as string,
                             password: crypto.randomBytes(48).toString('base64url'),
                             emailVerified: z.date().parse(new Date()),
                             role: 'marketing_specialist',
