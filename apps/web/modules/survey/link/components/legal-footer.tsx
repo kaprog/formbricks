@@ -33,6 +33,10 @@ export const LegalFooter = ({
             {t("common.privacy")}
           </Link>
         )}
+        <span className="px-2">|</span>
+        <Link href="https://github.com/kaprog/formbricks" target="_blank" className="hover:underline" tabIndex={-1}>
+          Source (AGPLv3)
+        </Link>
         {PRIVACY_URL && IS_FORMBRICKS_CLOUD && <span className="px-2">|</span>}
         {IS_FORMBRICKS_CLOUD && (
           <Link
